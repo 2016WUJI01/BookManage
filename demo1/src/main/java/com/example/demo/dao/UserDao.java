@@ -36,11 +36,12 @@ public interface UserDao {
     /**
      * 查询所有数据
      */
-    @Select("select id,username,password from user")
+    @Select("select id,username,nickname,sex,phonenumber,stuclass,position from user")
     List<User> findAll();
 
     /**
      * 根据username查找密码
+     *
      * @param userName
      * @return
      */
