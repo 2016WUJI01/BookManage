@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Homepage from '@/components/home/Homepage'
 import Test from '@/components/Test'
 import Layout from '@/components/Layout'
+import User from '@/components/user/User'
 Vue.use(Router)
 
 export default new Router({
@@ -25,7 +26,11 @@ export default new Router({
         path: '/',
         name: 'HomePage',
         component: Homepage
-      } ]
+      }, {
+        path: '/user',
+        name: 'User',
+        component: User
+      }]
     }
   ]
 })

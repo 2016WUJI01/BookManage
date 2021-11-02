@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-aside width="200px">
-        <el-menu
+        <el-menu router
           default-active="2"
           class="el-menu-vertical-demo"
           @open="handleOpen"
@@ -11,29 +11,27 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-menu-item index="1"
+          <el-menu-item index="/index"
             ><template slot="title">
               <i class="el-icon-location"></i> <span>首页</span></template
             >
           </el-menu-item>
           <el-submenu index="2"
             ><template slot="title">
-              <i class="el-icon-location"></i> <span>信息查询</span></template
+              <i class="el-icon-location"></i> <span>教材管理</span></template
             >
             <el-menu-item-group
-              ><template slot="title">用户信息查询</template>
-              <el-menu-item index="2-1">学生信息</el-menu-item>
-              <el-menu-item index="2-2">老师信息</el-menu-item></el-menu-item-group
+              ><template slot="title"></template>
+              <el-menu-item index="2-1">查询教材</el-menu-item>
+              <el-menu-item index="2-2">订购教材</el-menu-item>
+              <el-menu-item index="2-3">搜索教材</el-menu-item>
+              </el-menu-item-group
             >
-            <el-menu-item-group
-              ><template slot="title">所需教材汇总</template>
-              <el-menu-item index="2-3">学生订购</el-menu-item>
-              <el-menu-item index="2-4">老师订购</el-menu-item></el-menu-item-group
-            >
+
           </el-submenu>
-          <el-menu-item index="3"
+          <el-menu-item index="/user"
             ><template slot="title">
-              <i class="el-icon-location"></i> <span>系统管理</span></template
+              <i class="el-icon-location"></i> <span>用户管理</span></template
             >
           </el-menu-item>
         </el-menu>
@@ -68,6 +66,7 @@ export default {
 </script>
 
 <style>
+
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
@@ -85,7 +84,7 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  line-height: 60px;
 }
 body > .el-container {
   margin-bottom: 40px;
