@@ -22,7 +22,7 @@
             >
             <el-menu-item-group
               ><template slot="title"></template>
-              <el-menu-item index="2-1">查询教材</el-menu-item>
+              <el-menu-item index="/book">查询教材</el-menu-item>
               <el-menu-item index="2-2">订购教材</el-menu-item>
               <el-menu-item index="2-3">搜索教材</el-menu-item>
               </el-menu-item-group

@@ -5,6 +5,7 @@ import Homepage from '@/components/home/Homepage'
 import Test from '@/components/Test'
 import Layout from '@/components/Layout'
 import User from '@/components/user/User'
+import Book from '@/components/book/Book'
 Vue.use(Router)
 
 export default new Router({
@@ -30,6 +31,10 @@ export default new Router({
         path: '/user',
         name: 'User',
         component: User
+      }, {
+        path: '/book',
+        name: 'Book',
+        component: Book
       }]
     }
   ]
