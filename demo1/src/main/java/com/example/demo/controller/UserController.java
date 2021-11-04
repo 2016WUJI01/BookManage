@@ -13,7 +13,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser")
     public boolean addUser(@RequestBody User user) {
         System.out.println("新增数据：");
         return userService.addUser(user);

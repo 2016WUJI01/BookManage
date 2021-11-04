@@ -8,7 +8,6 @@ public class User {
     private String password;
     private String nickname;
     private int sex;
-    private Date birthday;
     private String phonenumber;
     private String stuclass;
     private String position;
@@ -19,14 +18,6 @@ public class User {
 
     public void setSex(int sex) {
         this.sex = sex;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public String getPhonenumber() {
