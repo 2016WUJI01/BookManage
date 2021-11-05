@@ -1,12 +1,16 @@
 <template>
   <div>
     <div style="float: right">
-      <el-button @click="dialogvisible = true">新增</el-button>
-
+      <el-button @click="addFormVisible = true">新增</el-button>
     </div>
+
     <div>
-      <el-table :data="paginationData" border style="width: 100%"
-        ><el-table-column
+      <el-table
+        :data="paginationData"
+        border
+        style="width: 100%"
+      >
+        <el-table-column
           prop="id"
           label="id"
           width="120
@@ -16,13 +20,13 @@
           prop="username"
           label="姓名"
           width="120"
-        ></el-table-column
-        ><el-table-column
+        ></el-table-column>
+        <el-table-column
           prop="nickname"
           label="用户名"
           width="120"
-        ></el-table-column
-        ><el-table-column
+        ></el-table-column>
+        <el-table-column
           prop="sex"
           label="性别"
           :formatter="formatter"
@@ -45,24 +49,27 @@
           width="120"
         ></el-table-column>
         <el-table-column align="right">
-          <template slot="header" slot-scope="scope">
+          <template
+            slot="header"
+            slot-scope="scope"
+          >
             <el-input
               v-model="keyword"
               size="mini"
               placeholder="输入关键字搜索"
             />
           </template>
-          <template slot-scope="scope"
-            ><el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button>
             <el-button
               size="mini"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            ></template
-          >
+            >删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
       <el-pagination
@@ -81,6 +88,7 @@
 </template>
 
 <script>
+import U
 export default {
   name: 'User',
   data () {
@@ -92,6 +100,7 @@ export default {
       pagesize: 5,
       keyword: '',
       stashList: []
+
     }
   },
   created () {
@@ -152,5 +161,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
