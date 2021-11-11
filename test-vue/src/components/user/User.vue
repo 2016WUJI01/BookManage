@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="float: right">
-      <el-button @click="addFormVisible = true">新增</el-button>
+      <el-button @click="showCreate">新增</el-button>
     </div>
 
     <div>
@@ -24,12 +24,6 @@
         <el-table-column
           prop="nickname"
           label="用户名"
-          width="120"
-        ></el-table-column>
-        <el-table-column
-          prop="sex"
-          label="性别"
-          :formatter="formatter"
           width="120"
         ></el-table-column>
 
@@ -84,11 +78,82 @@
       >
       </el-pagination>
     </div>
+    <el-dialog
+      title="新增用户"
+      :visible.sync="addFormVisible"
+    >
+      <el-form :model="addform">
+        <el-form-item
+          label="id"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.id"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="姓名"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.username"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="用户名"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.nickname"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item
+          label="手机号码"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.phonenumber"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="班级"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.stuclass"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="职位"
+          :label-width="formLabelWidth"
+        >
+          <el-input
+            v-model="addform.position"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="addFormVisible = false">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="addFormVisible = false"
+        >确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import U
 export default {
   name: 'User',
   data () {
@@ -99,8 +164,18 @@ export default {
       paginationData: [],
       pagesize: 5,
       keyword: '',
-      stashList: []
-
+      stashList: [],
+      addFormVisible: false,
+      addform: {
+        id: '',
+        username: '',
+        password: '',
+        nickname: '',
+        phonenumber: '',
+        stuclass: '',
+        position: ''
+      },
+      formLabelWidth: '120px'
     }
   },
   created () {
@@ -153,9 +228,6 @@ export default {
         }
       }
       this.total = this.tableData.length
-    },
-    formatter (row, column) {
-      return row.sex === 1 ? '男' : '女'
     }
   }
 }

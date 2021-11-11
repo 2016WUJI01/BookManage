@@ -12,7 +12,7 @@ public interface UserDao {
     /**
      * 增
      */
-    @Insert("insert into user(id,username,password,nickname,sex,phonenumber,stuclass,position) values (#{id},#{username},#{password},#{nickname},#{sex},#{phonenumber},#{stuclass},#{position})")
+    @Insert("insert into user(id,username,password,nickname,phonenumber,stuclass,position) values (#{id},#{username},#{password},#{nickname},#{phonenumber},#{stuclass},#{position})")
     void addUser(User user);
 
     /**
@@ -36,7 +36,7 @@ public interface UserDao {
     /**
      * 查询所有数据
      */
-    @Select("select id,username,nickname,sex,phonenumber,stuclass,position from user")
+    @Select("select id,username,nickname,phonenumber,stuclass,position from user")
     List<User> findAll();
 
     /**
