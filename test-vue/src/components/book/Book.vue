@@ -1,60 +1,50 @@
 <template>
   <div>
-    <el-table :data="paginationData" border style="width: 100%"
-      ><el-table-column prop="id" label="id" width="180
+    <el-table :data="paginationData"
+              border
+              style="width: 100%">
+      <el-table-column prop="id"
+                       label="id"
+                       width="180
       "></el-table-column>
-      <el-table-column
-        prop="bookname"
-        label="书名"
-        width="180"
-      ></el-table-column
-      ><el-table-column
-        prop="supplier"
-        label="供应商"
-        width="180"
-      ></el-table-column
-      ><el-table-column
-        prop="price"
-        label="价格"
-        width="180"
-      ></el-table-column>
+      <el-table-column prop="bookname"
+                       label="书名"
+                       width="180"></el-table-column>
+      <el-table-column prop="supplier"
+                       label="供应商"
+                       width="180"></el-table-column>
+      <el-table-column prop="price"
+                       label="价格"
+                       width="180"></el-table-column>
 
-      <el-table-column
-        prop="reserve"
-        label="库存"
-        width="180"
-      ></el-table-column>
+      <el-table-column prop="reserve"
+                       label="库存"
+                       width="180"></el-table-column>
 
       <el-table-column align="right">
-        <template slot="header" slot-scope="scope">
-          <el-input
-            v-model="keyword"
-            size="mini"
-            placeholder="输入关键字搜索"
-          />
+        <template slot="header"
+                  slot-scope="scope">
+          <el-input v-model="keyword"
+                    size="mini"
+                    placeholder="输入关键字搜索" />
         </template>
-        <template slot-scope="scope"
-          ><el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          ></template
-        >
+        <template slot-scope="scope">
+          <el-button size="mini"
+                     @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini"
+                     type="danger"
+                     @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[5, 10, 15, 20]"
-      :page-size="pagesize"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
-      style="margin:10px 0">
+    <el-pagination @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :current-page="currentPage"
+                   :page-sizes="[5, 10, 15, 20]"
+                   :page-size="pagesize"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="total"
+                   style="margin:10px 0">
     </el-pagination>
   </div>
 </template>
@@ -96,7 +86,7 @@ export default {
   },
   methods: {
     getTable () {
-      this.$http.get('/book/bookAll').then((response) => {
+      this.$http.get('/book/bookAll').then(response => {
         this.tableData = response.data
         this.handleCurrentChange(this.currentPage)
         this.stashList = this.tableData
@@ -113,7 +103,11 @@ export default {
     },
     tableList () {
       this.paginationData = [] // 分页数组  tableData 所有的数据
-      for (var j = this.pagesize * (this.currentPage - 1); j < this.pagesize * this.currentPage; j++) {
+      for (
+        var j = this.pagesize * (this.currentPage - 1);
+        j < this.pagesize * this.currentPage;
+        j++
+      ) {
         if (this.tableData[j]) {
           this.paginationData.push(this.tableData[j])
         }

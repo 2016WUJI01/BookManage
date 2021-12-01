@@ -10,16 +10,10 @@
 export default {
   name: 'HomePage',
   data () {
-    return {
-
-    }
+    return {}
   },
-  created () {
-
-  },
-  methods: {
-
-  }
+  created () {},
+  methods: {}
 }
 </script>
 

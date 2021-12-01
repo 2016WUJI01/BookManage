@@ -1,80 +1,46 @@
 <template>
   <div>
-    <div style="float: right">
-      <el-button>新增</el-button>
-    </div>
-
     <div>
-      <el-table
-        :data="paginationData"
-        border
-        style="width: 100%"
-      >
-        <el-table-column
-          prop="id"
-          label="id"
-          width="120
-      "
-        ></el-table-column>
-        <el-table-column
-          prop="username"
-          label="姓名"
-          width="120"
-        ></el-table-column>
-        <el-table-column
-          prop="nickname"
-          label="用户名"
-          width="120"
-        ></el-table-column>
+      <el-table :data="paginationData"
+                border
+                style="width: 100%">
+        <el-table-column prop="id"
+                         label="id"
+                         width="120
+      "></el-table-column>
+        <el-table-column prop="username"
+                         label="姓名"
+                         width="120"></el-table-column>
+        <el-table-column prop="nickname"
+                         label="用户名"
+                         width="120"></el-table-column>
 
-        <el-table-column
-          prop="phonenumber"
-          label="手机号码"
-          width="120"
-        ></el-table-column>
-        <el-table-column
-          prop="stuclass"
-          label="班级"
-          width="120"
-        ></el-table-column>
-        <el-table-column
-          prop="position"
-          label="职位"
-          width="120"
-        ></el-table-column>
+        <el-table-column prop="phonenumber"
+                         label="手机号码"
+                         width="120"></el-table-column>
+        <el-table-column prop="stuclass"
+                         label="班级"
+                         width="120"></el-table-column>
+        <el-table-column prop="position"
+                         label="职位"
+                         width="120"></el-table-column>
         <el-table-column align="right">
-          <template
-            slot="header"
-            slot-scope="scope"
-          >
-            <el-input
-              v-model="keyword"
-              size="mini"
-              placeholder="输入关键字搜索"
-            />
-          </template>
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="primary"
-            >修改</el-button>
-            <el-button
-              size="mini"
-              type="danger"
-            >删除</el-button>
+          <template slot="header"
+                    slot-scope="scope">
+            <el-input v-model="keyword"
+                      size="mini"
+                      placeholder="输入关键字搜索" />
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[5, 10, 15, 20]"
-        :page-size="pagesize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-        style="margin: 10px 0"
-      >
+      <el-pagination @size-change="handleSizeChange"
+                     @current-change="handleCurrentChange"
+                     :current-page="currentPage"
+                     :page-sizes="[5, 10, 15, 20]"
+                     :page-size="pagesize"
+                     layout="total, sizes, prev, pager, next, jumper"
+                     :total="total"
+                     style="margin: 10px 0">
       </el-pagination>
     </div>
 
@@ -105,7 +71,7 @@ export default {
         let self = this
         if (newValue) {
           // 这里要从暂存的所有数据中过滤 放到展示的数组中
-          self.tableData = self.stashList.filter((item) => {
+          self.tableData = self.stashList.filter(item => {
             return item.nickname.includes(newValue)
           })
         } else {
@@ -118,7 +84,7 @@ export default {
   },
   methods: {
     getTable () {
-      this.$http.get('/user/userAll').then((response) => {
+      this.$http.get('/user/userAll').then(response => {
         this.tableData = response.data
         this.handleCurrentChange(this.currentPage)
         this.stashList = this.tableData

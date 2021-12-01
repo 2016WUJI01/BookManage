@@ -1,11 +1,11 @@
+import Book from '@/components/book/Book'
+import Homepage from '@/components/home/Homepage'
+import Layout from '@/components/Layout'
+import Login from '@/components/Login'
+import Test from '@/components/Test'
+import User from '@/components/user/User'
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/Login'
-import Homepage from '@/components/home/Homepage'
-import Test from '@/components/Test'
-import Layout from '@/components/Layout'
-import User from '@/components/user/User'
-import Book from '@/components/book/Book'
 Vue.use(Router)
 
 export default new Router({
