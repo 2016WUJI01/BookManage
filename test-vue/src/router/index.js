@@ -1,4 +1,6 @@
 import Book from '@/components/book/Book'
+import Bookback from '@/components/book/Bookback'
+import Bookorder from '@/components/book/Bookorder'
 import Homepage from '@/components/home/Homepage'
 import Layout from '@/components/Layout'
 import Login from '@/components/Login'
@@ -35,6 +37,14 @@ export default new Router({
         path: '/book',
         name: 'Book',
         component: Book
+      }, {
+        path: '/bookback',
+        name: 'BookBack',
+        component: Bookback
+      }, {
+        path: '/bookorder',
+        name: 'BookOrder',
+        component: Bookorder
       }]
     }
   ]

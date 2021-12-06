@@ -17,8 +17,8 @@
               <i class="el-icon-location"></i> <span>教材管理</span></template>
             <el-menu-item-group><template slot="title"></template>
               <el-menu-item index="/book">查询教材</el-menu-item>
-              <el-menu-item index="2-2">订购教材</el-menu-item>
-              <el-menu-item index="2-3">搜索教材</el-menu-item>
+              <el-menu-item index="/bookorder">订购教材</el-menu-item>
+              <el-menu-item index="/bookback">退教材</el-menu-item>
             </el-menu-item-group>
 
           </el-submenu>

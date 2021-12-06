@@ -26,10 +26,10 @@ public class BookController {
         return bookService.updateBook(book);
     }
 
-    @RequestMapping(value = "/book", method = RequestMethod.DELETE)
-    public boolean deleteBook(@RequestParam(value = "id", required = true) int Id) {
+    @RequestMapping(value = "/bookDelete", method = RequestMethod.POST)
+    public boolean deleteBook(@RequestBody Book book) {
         System.out.println("删除数据：");
-        return bookService.deleteBook(Id);
+        return bookService.deleteBook(book);
     }
 
     @RequestMapping(value = "/book", method = RequestMethod.GET)
