@@ -26,10 +26,10 @@ public interface BookDao {
     /**
      * delete book
      *
-     * @param id
+     * @param book
      */
     @Delete("delete from book where id=#{id}")
-    void deleteBook(int id);
+    void deleteBook(Book book);
 
     /**
      * find book by bookname

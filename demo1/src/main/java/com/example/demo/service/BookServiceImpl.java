@@ -37,10 +37,10 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public boolean deleteBook(int id) {
+    public boolean deleteBook(Book book) {
         boolean flag = false;
         try {
-            bookDao.deleteBook(id);
+            bookDao.deleteBook(book);
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();

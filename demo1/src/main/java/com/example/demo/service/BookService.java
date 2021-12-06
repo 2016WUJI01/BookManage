@@ -23,9 +23,9 @@ public interface BookService {
     /**
      * delete book
      *
-     * @param id
+     * @param book
      */
-    boolean deleteBook(int id);
+    boolean deleteBook(Book book);
 
     /**
      * find book by bookname
