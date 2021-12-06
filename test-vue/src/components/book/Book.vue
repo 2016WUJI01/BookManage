@@ -124,7 +124,8 @@
       </el-dialog>
       <el-dialog title="删除书籍"
                  :visible.sync="deleteFormVisible">
-        <el-form :model="deleteform">
+        <el-form :model="deleteform"
+                 disabled="disabled">
           <el-form-item></el-form-item>
           <el-form-item label="id"
                         :label-width="formLabelWidth">
@@ -151,10 +152,11 @@
             <el-input v-model="deleteform.reserve"
                       auto-complete="off"></el-input>
           </el-form-item>
-          <el-button @click="deleteFormVisible = false">取消</el-button>
-          <el-button type="primary"
-                     @click="confirmDelete">确定</el-button>
+
         </el-form>
+        <el-button @click="deleteFormVisible = false">取消</el-button>
+        <el-button type="primary"
+                   @click="confirmDelete">确定</el-button>
       </el-dialog>
     </div>
   </div>
