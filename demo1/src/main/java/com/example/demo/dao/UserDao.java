@@ -41,4 +41,10 @@ public interface UserDao {
      */
     @Select("select password from user where username = #{username}")
     String getUserPassword(@Param("userName") String userName);
+
+    /**
+     * 根据名字查询数据
+     */
+    @Select("select id,username from user where username = #{username}")
+    User findByName(@Param("userName") String userName);
 }

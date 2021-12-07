@@ -2,8 +2,9 @@
   <div>
     <div>
       <div align="right">
-        <el-button @click="addFormVisible = true">新增书籍
-        </el-button>
+        <el-button type="primary"
+                   icon="plus"
+                   @click="showCreate">添加</el-button>
       </div>
     </div>
     <el-table :data="paginationData"
@@ -11,22 +12,20 @@
               style="width: 100%">
       <el-table-column prop="id"
                        label="id"
-                       width="180
+                       width="formLabelWidth
       "></el-table-column>
       <el-table-column prop="bookname"
                        label="书名"
-                       width="180"></el-table-column>
+                       width="formLabelWidth"></el-table-column>
       <el-table-column prop="supplier"
                        label="供应商"
-                       width="180"></el-table-column>
+                       width="formLabelWidth"></el-table-column>
       <el-table-column prop="price"
                        label="价格"
-                       width="180"></el-table-column>
-
+                       width="formLabelWidth"></el-table-column>
       <el-table-column prop="reserve"
                        label="库存"
-                       width="180"></el-table-column>
-
+                       width="formLabelWidth"></el-table-column>
       <el-table-column align="right">
         <template slot="header"
                   slot-scope="scope">
@@ -35,11 +34,12 @@
                     placeholder="输入关键字搜索" />
         </template>
         <template slot-scope="scope">
-          <el-button size="mini"
-                     @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini"
-                     type="danger"
-                     @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button type="primary"
+                     icon="edit"
+                     @click="showUpdate(scope.$index,scope.row)">修改</el-button>
+          <el-button type="danger"
+                     icon="delete"
+                     @click="showDelete(scope.$index,scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,110 +53,60 @@
                    style="margin:10px 0">
     </el-pagination>
     <div>
-      <el-dialog title="添加书籍"
-                 :visible.sync="addFormVisible">
-        <el-form :model="addform">
-          <el-form-item></el-form-item>
+      <el-dialog :title="textMap[dialogStatus]"
+                 :visible.sync="dialogFormVisible">
+        <el-form class="small-space"
+                 :model="tempBook"
+                 label-position="left"
+                 label-width="formLabelWidth"
+                 style="width:300px;margin-left:50px;">
           <el-form-item label="id"
-                        :label-width="formLabelWidth">
-            <el-input v-model="addform.id"
+                        :label-width="formLabelWidth"
+                        v-if="dialogStatus==='create'">
+            <el-input v-model="tempBook.id"
                       auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="书名"
-                        :label-width="formLabelWidth">
-            <el-input v-model="addform.bookname"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="供应商"
-                        :label-width="formLabelWidth">
-            <el-input v-model="addform.supplier"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="价格"
-                        :label-width="formLabelWidth">
-            <el-input v-model="addform.price"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="库存"
-                        :label-width="formLabelWidth">
-            <el-input v-model="addform.reserve"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-button @click="addFormVisible = false">取消</el-button>
-          <el-button type="primary"
-                     @click="confirmAdd">确定</el-button>
-        </el-form>
-      </el-dialog>
-      <el-dialog title="修改书籍"
-                 :visible.sync="editFormVisible">
-        <el-form :model="editform">
-          <el-form-item></el-form-item>
           <el-form-item label="id"
-                        :label-width="formLabelWidth">
-            <el-input v-model="editform.id"
+                        :label-width="formLabelWidth"
+                        v-else>
+            <el-input v-model="tempBook.id"
                       auto-complete="off"
                       disabled="disabled"></el-input>
           </el-form-item>
           <el-form-item label="书名"
                         :label-width="formLabelWidth">
-            <el-input v-model="editform.bookname"
+            <el-input v-model="tempBook.bookname"
                       auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="供应商"
                         :label-width="formLabelWidth">
-            <el-input v-model="editform.supplier"
+            <el-input v-model="tempBook.supplier"
                       auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="价格"
                         :label-width="formLabelWidth">
-            <el-input v-model="editform.price"
+            <el-input v-model="tempBook.price"
                       auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="库存"
                         :label-width="formLabelWidth">
-            <el-input v-model="editform.reserve"
+            <el-input v-model="tempBook.reserve"
                       auto-complete="off"></el-input>
           </el-form-item>
-          <el-button @click="editFormVisible = false">取消</el-button>
+        </el-form>
+        <div slot="footer"
+             class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取消</el-button>
+          <el-button v-if="dialogStatus==='create'"
+                     type="success"
+                     @click="createBook">创建</el-button>
           <el-button type="primary"
-                     @click="confirmEdit">确定</el-button>
-        </el-form>
-      </el-dialog>
-      <el-dialog title="删除书籍"
-                 :visible.sync="deleteFormVisible">
-        <el-form :model="deleteform"
-                 disabled="disabled">
-          <el-form-item></el-form-item>
-          <el-form-item label="id"
-                        :label-width="formLabelWidth">
-            <el-input v-model="deleteform.id"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="书名"
-                        :label-width="formLabelWidth">
-            <el-input v-model="deleteform.bookname"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="供应商"
-                        :label-width="formLabelWidth">
-            <el-input v-model="deleteform.supplier"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="价格"
-                        :label-width="formLabelWidth">
-            <el-input v-model="deleteform.price"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="库存"
-                        :label-width="formLabelWidth">
-            <el-input v-model="deleteform.reserve"
-                      auto-complete="off"></el-input>
-          </el-form-item>
-
-        </el-form>
-        <el-button @click="deleteFormVisible = false">取消</el-button>
-        <el-button type="primary"
-                   @click="confirmDelete">确定</el-button>
+                     v-else-if="dialogStatus==='update'"
+                     @click="updateBook">修改</el-button>
+          <el-button type="primary"
+                     v-else-if="dialogStatus==='delete'"
+                     @click="deleteBook">删除</el-button>
+        </div>
       </el-dialog>
       <el-dialog title="错误提示"
                  :visible.sync="errorDialogVisible">
@@ -182,32 +132,22 @@ export default {
       pagesize: 5,
       keyword: '',
       stashList: [],
-      addFormVisible: false,
-      addform: {
+      formLabelWidth: '80px',
+      errorDialogVisible: false,
+      dialogFormVisible: false,
+      dialogStatus: 'create',
+      textMap: {
+        create: '新增书籍',
+        update: '编辑书籍',
+        delete: '删除书籍'
+      },
+      tempBook: {
         id: '',
         bookname: '',
         supplier: '',
         price: '',
         reserve: ''
-      },
-      editFormVisible: false,
-      editform: {
-        id: '',
-        bookname: '',
-        supplier: '',
-        price: '',
-        reserve: ''
-      },
-      deleteFormVisible: false,
-      deleteform: {
-        id: '',
-        bookname: '',
-        supplier: '',
-        price: '',
-        reserve: ''
-      },
-      formLabelWidth: '100px',
-      errorDialogVisible: false
+      }
     }
   },
   created () {
@@ -264,15 +204,34 @@ export default {
       }
       this.total = this.tableData.length
     },
-
-    confirmAdd () {
+    showCreate () {
+      // 显示新增弹出框
+      this.tempBook.id = ''
+      this.tempBook.bookname = ''
+      this.tempBook.supplier = ''
+      this.tempBook.price = ''
+      this.tempBook.reserve = ''
+      this.dialogStatus = 'create'
+      this.dialogFormVisible = true
+    },
+    showUpdate (index, row) {
+      this.tempBook = Object.assign({}, row)
+      this.dialogStatus = 'update'
+      this.dialogFormVisible = true
+    },
+    showDelete (index, row) {
+      this.tempBook = Object.assign({}, row)
+      this.dialogStatus = 'delete'
+      this.dialogFormVisible = true
+    },
+    createBook () {
       this.$http
         .post('/book/book', {
-          id: this.addform.id,
-          bookname: this.addform.bookname,
-          supplier: this.addform.supplier,
-          price: this.addform.price,
-          reserve: this.addform.reserve
+          id: this.tempBook.id,
+          bookname: this.tempBook.bookname,
+          supplier: this.tempBook.supplier,
+          price: this.tempBook.price,
+          reserve: this.tempBook.reserve
         })
         .then(response => {
           if (response.data === true) {
@@ -285,18 +244,14 @@ export default {
           }
         })
     },
-    handleEdit (index, row) {
-      this.editFormVisible = true
-      this.editform = Object.assign({}, row)
-    },
-    confirmEdit () {
+    updateBook () {
       this.$http
         .put('/book/book', {
-          id: this.editform.id,
-          bookname: this.editform.bookname,
-          supplier: this.editform.supplier,
-          price: this.editform.price,
-          reserve: this.editform.reserve
+          id: this.tempBook.id,
+          bookname: this.tempBook.bookname,
+          supplier: this.tempBook.supplier,
+          price: this.tempBook.price,
+          reserve: this.tempBook.reserve
         })
         .then(response => {
           console.log('response', response)
@@ -304,14 +259,10 @@ export default {
           this.reload()
         })
     },
-    handleDelete (index, row) {
-      this.deleteFormVisible = true
-      this.deleteform = Object.assign({}, row)
-    },
-    confirmDelete () {
+    deleteBook () {
       this.$http
         .post('/book/bookDelete', {
-          id: this.deleteform.id
+          id: this.tempBook.id
         })
         .then(response => {
           this.deleteFormVisible = false

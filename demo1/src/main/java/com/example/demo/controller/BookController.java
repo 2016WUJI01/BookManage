@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @RequestMapping(value = "/bookAll", method = RequestMethod.GET)
-    public List<Book> findALlBook() {
+    public List<Book> findAllBook() {
         System.out.println("查询所有书籍：");
         return bookService.findAllBook();
     }

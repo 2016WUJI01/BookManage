@@ -10,31 +10,30 @@ Target Server Type    : MYSQL
 Target Server Version : 50731
 File Encoding         : 65001
 
-Date: 2021-11-13 21:37:20
+Date: 2021-12-07 14:30:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `back`
+-- Table structure for `backorder`
 -- ----------------------------
-DROP TABLE IF EXISTS `back`;
-CREATE TABLE `back` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `adminid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `bookid` int(11) NOT NULL,
-  `price` double(5,2) NOT NULL,
+DROP TABLE IF EXISTS `backorder`;
+CREATE TABLE `backorder` (
+  `id` varchar(11) COLLATE utf8_bin NOT NULL,
+  `adminid` varchar(11) COLLATE utf8_bin NOT NULL,
+  `userid` varchar(11) COLLATE utf8_bin NOT NULL,
+  `bookid` varchar(11) COLLATE utf8_bin NOT NULL,
   `number` int(6) NOT NULL,
   `date` date NOT NULL,
   `reason` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of back
+-- Records of backorder
 -- ----------------------------
-INSERT INTO `back` VALUES ('1', '3', '2019000001', '1001', '10.55', '20', '2021-11-02', '多余');
+INSERT INTO `backorder` VALUES ('1', '3', '2019000001', '1001', '20', '2021-11-02', '多余');
 
 -- ----------------------------
 -- Table structure for `book`
@@ -44,16 +43,20 @@ CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bookname` varchar(255) COLLATE utf8_bin NOT NULL,
   `supplier` varchar(16) COLLATE utf8_bin NOT NULL,
-  `price` double(5,2) NOT NULL,
+  `price` double(6,2) NOT NULL,
   `reserve` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1011 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES ('1001', '数学教科书', '新华书店', '15.90', '1');
+INSERT INTO `book` VALUES ('1001', '数学教科书', '新华书店', '15.90', '4');
 INSERT INTO `book` VALUES ('1002', '英语教科书', '新华书店', '14.90', '2');
+INSERT INTO `book` VALUES ('1003', 'bookname', 'test', '10.00', '100');
+INSERT INTO `book` VALUES ('1005', '1005', '100', '11.00', '1');
+INSERT INTO `book` VALUES ('1007', '1', '11', '1.00', '1');
+INSERT INTO `book` VALUES ('1008', '1', '1', '11.00', '1');
 
 -- ----------------------------
 -- Table structure for `orderdetail`
@@ -64,7 +67,6 @@ CREATE TABLE `orderdetail` (
   `adminid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `bookid` int(11) NOT NULL,
-  `price` double(5,2) NOT NULL,
   `number` int(11) NOT NULL,
   `date` date NOT NULL,
   `situation` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -74,14 +76,14 @@ CREATE TABLE `orderdetail` (
 -- ----------------------------
 -- Records of orderdetail
 -- ----------------------------
-INSERT INTO `orderdetail` VALUES ('1', '1', '2019000001', '1001', '0.00', '20', '2019-01-01', '未完成');
+INSERT INTO `orderdetail` VALUES ('1', '1', '2019000001', '1001', '20', '2019-01-01', '未完成');
 
 -- ----------------------------
 -- Table structure for `stuclass`
 -- ----------------------------
 DROP TABLE IF EXISTS `stuclass`;
 CREATE TABLE `stuclass` (
-  `stuclass` int(11) NOT NULL,
+  `stuclass` varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `college` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `classname` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`stuclass`)
