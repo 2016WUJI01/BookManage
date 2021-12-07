@@ -158,6 +158,14 @@
         <el-button type="primary"
                    @click="confirmDelete">确定</el-button>
       </el-dialog>
+      <el-dialog title="错误提示"
+                 :visible.sync="errorDialogVisible">
+        <span>请修改id</span>
+        <span slot="footer">
+          <el-button type="primary"
+                     @click="errorDialogVisible = false">确定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -198,7 +206,8 @@ export default {
         price: '',
         reserve: ''
       },
-      formLabelWidth: '100px'
+      formLabelWidth: '100px',
+      errorDialogVisible: false
     }
   },
   created () {
@@ -255,6 +264,7 @@ export default {
       }
       this.total = this.tableData.length
     },
+
     confirmAdd () {
       this.$http
         .post('/book/book', {
@@ -265,9 +275,14 @@ export default {
           reserve: this.addform.reserve
         })
         .then(response => {
-          console.log('response', response)
-          this.addFormVisible = false
-          this.reload()
+          if (response.data === true) {
+            console.log('response', response)
+            this.addFormVisible = false
+            this.reload()
+          } else {
+            this.errorDialogVisible = true
+            console.log('数据有误重新输入')
+          }
         })
     },
     handleEdit (index, row) {

@@ -32,16 +32,11 @@ public class BookController {
         return bookService.deleteBook(book);
     }
 
-    @RequestMapping(value = "/book", method = RequestMethod.GET)
-    public Book findByUserName(@RequestParam(value = "bookName", required = true) String bookName) {
-        System.out.println("查询数据：");
-        return bookService.findByBookname(bookName);
-    }
-
     @RequestMapping(value = "/bookAll", method = RequestMethod.GET)
     public List<Book> findALlBook() {
         System.out.println("查询所有书籍：");
         return bookService.findAllBook();
     }
+
 
 }

@@ -28,15 +28,10 @@ public interface BookService {
     boolean deleteBook(Book book);
 
     /**
-     * find book by bookname
-     * @param bookname
-     * @return
-     */
-    Book findByBookname(String bookname);
-
-    /**
      * find all book
+     *
      * @return
      */
     List<Book> findAllBook();
+
 }

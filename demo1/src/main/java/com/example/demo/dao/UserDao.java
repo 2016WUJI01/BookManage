@@ -28,12 +28,6 @@ public interface UserDao {
     void deleteUser(int id);
 
     /**
-     * 根据名字查询数据
-     */
-    @Select("select id,username from user where username = #{username}")
-    User findByName(@Param("userName") String userName);
-
-    /**
      * 查询所有数据
      */
     @Select("select id,username,nickname,phonenumber,stuclass,position from user")

@@ -31,11 +31,6 @@ public class UserController {
         return userService.deleteUser(Id);
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public User findByUserName(@RequestParam(value = "userName", required = true) String userName) {
-        System.out.println("查询数据：");
-        return userService.findUserByName(userName);
-    }
 
     @RequestMapping(value = "/userAll", method = RequestMethod.GET)
     public List<User> findAll() {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
 
@@ -48,13 +48,10 @@ public class BookServiceImpl implements BookService{
         return flag;
     }
 
-    @Override
-    public Book findByBookname(String bookname) {
-        return bookDao.findByBookname(bookname);
-    }
 
     @Override
     public List<Book> findAllBook() {
         return bookDao.findAllBook();
     }
+
 }

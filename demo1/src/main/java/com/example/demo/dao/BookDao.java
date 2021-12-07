@@ -32,17 +32,11 @@ public interface BookDao {
     void deleteBook(Book book);
 
     /**
-     * find book by bookname
-     * @param bookname
-     * @return
-     */
-    @Select("select * from book where bookname=#{bookname}")
-    Book findByBookname(String bookname);
-
-    /**
      * find all book
+     *
      * @return
      */
     @Select("select * from book")
     List<Book> findAllBook();
+
 }

@@ -13,13 +13,13 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean checkPassword(@RequestBody User user) {
         System.out.println("检查密码：");
         String username = user.getUsername();
         String password = user.getPassword();
-        if(loginService.findUserByName(username) != null) {
-            if(password.equals(loginService.getUserPassword(username))) {
+        if (loginService.findUserByName(username) != null) {
+            if (password.equals(loginService.getUserPassword(username))) {
                 return true;
             }
         }
