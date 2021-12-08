@@ -102,8 +102,9 @@
           </el-form-item>
           <el-form-item label="日期"
                         :label-width="formLabelWidth">
-            <el-input v-model="tempOrder.date"
-                      auto-complete="off"></el-input>
+            <el-date-picker v-model="tempOrder.date"
+                            type="date"></el-date-picker>
+
           </el-form-item>
           <el-form-item label="原因"
                         :label-width="formLabelWidth">
