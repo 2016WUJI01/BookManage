@@ -27,6 +27,7 @@
                        label="数量"
                        :width="formLabelWidth"></el-table-column>
       <el-table-column prop="date"
+                       :formatter="dateFormat"
                        label="日期"
                        :width="formLabelWidth"></el-table-column>
       <el-table-column prop="reason"
@@ -148,7 +149,7 @@ export default {
       pagesize: 5,
       keyword: '',
       stashList: [],
-      formLabelWidth: '100px',
+      formLabelWidth: '110px',
       errorDialogVisible: false,
       dialogFormVisible: false,
       dialogStatus: 'create',
@@ -192,6 +193,14 @@ export default {
   methods: {
     reload () {
       window.location.reload()
+    },
+    dateFormat: function (row, column) {
+      let date = row[column.property]
+      if (date === undefined) {
+        return ''
+      }
+      let moment = require('moment')
+      return moment(date).format('YYYY-MM-DD')
     },
     getTable () {
       this.$http.get('/backorder/backorderAll').then(response => {
