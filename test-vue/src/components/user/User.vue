@@ -9,10 +9,10 @@
                          width="120
       "></el-table-column>
         <el-table-column prop="username"
-                         label="姓名"
+                         label="用户名"
                          width="120"></el-table-column>
         <el-table-column prop="nickname"
-                         label="用户名"
+                         label="昵称"
                          width="120"></el-table-column>
 
         <el-table-column prop="phonenumber"
@@ -20,7 +20,8 @@
                          width="120"></el-table-column>
         <el-table-column prop="stuclass"
                          label="班级"
-                         width="120"></el-table-column>
+                         width="120"
+                         :formatter="classFormatter"></el-table-column>
         <el-table-column prop="position"
                          label="职位"
                          width="120"></el-table-column>
@@ -58,7 +59,8 @@ export default {
       paginationData: [],
       pagesize: 5,
       keyword: '',
-      stashList: []
+      stashList: [],
+      classOptions: []
     }
   },
   created () {
@@ -90,6 +92,9 @@ export default {
         this.stashList = this.tableData
         console.log(response.data)
       })
+      this.$http.get('/department/departmentAll').then(response => {
+        this.classOptions = response.data
+      })
     },
     handleSizeChange (val) {
       this.pagesize = val
@@ -111,6 +116,15 @@ export default {
         }
       }
       this.total = this.tableData.length
+    },
+    classFormatter (row, column) {
+      let tempname = ''
+      this.classOptions.forEach(function (item, index) {
+        if (row.stuclass === item.stuclass) {
+          tempname = item.classname
+        }
+      })
+      return tempname
     }
   }
 }

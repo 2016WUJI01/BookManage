@@ -16,13 +16,16 @@
       "></el-table-column>
       <el-table-column prop="adminid"
                        label="管理员"
-                       :width="formLabelWidth"></el-table-column>
+                       :width="formLabelWidth"
+                       :formatter="adminFormatter"></el-table-column>
       <el-table-column prop="userid"
                        label="用户"
-                       :width="formLabelWidth"></el-table-column>
+                       :width="formLabelWidth"
+                       :formatter="userFormatter"></el-table-column>
       <el-table-column prop="bookid"
                        label="书籍"
-                       :width="formLabelWidth"></el-table-column>
+                       :width="formLabelWidth"
+                       :formatter="bookFormatter"></el-table-column>
       <el-table-column prop="number"
                        label="数量"
                        :width="formLabelWidth"></el-table-column>
@@ -167,7 +170,9 @@ export default {
         number: '',
         date: '',
         reason: ''
-      }
+      },
+      userOptions: [],
+      bookOptions: []
     }
   },
   created () {
@@ -209,6 +214,12 @@ export default {
         this.handleCurrentChange(this.currentPage)
         this.stashList = this.tableData
         console.log(response.data)
+      })
+      this.$http.get('/user/userAll').then(response => {
+        this.userOptions = response.data
+      })
+      this.$http.get('/book/bookAll').then(response => {
+        this.bookOptions = response.data
       })
     },
     handleSizeChange (val) {
@@ -303,6 +314,33 @@ export default {
           console.log('response', response)
           this.reload()
         })
+    },
+    adminFormatter (row, column) {
+      let tempname = ''
+      this.userOptions.forEach(function (item, index) {
+        if (row.adminid === item.id) {
+          tempname = item.nickname
+        }
+      })
+      return tempname
+    },
+    userFormatter (row, column) {
+      let tempname = ''
+      this.userOptions.forEach(function (item, index) {
+        if (row.userid === item.id) {
+          tempname = item.nickname
+        }
+      })
+      return tempname
+    },
+    bookFormatter (row, column) {
+      let tempname = ''
+      this.bookOptions.forEach(function (item, index) {
+        if (row.bookid === item.id) {
+          tempname = item.bookname
+        }
+      })
+      return tempname
     }
   }
 }
