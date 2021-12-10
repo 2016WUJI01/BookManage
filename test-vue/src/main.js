@@ -16,7 +16,6 @@ Vue.use(VueAxios, axios)
 axios.defaults.baseURL = '/api'
 Vue.config.productionTip = false
 Vue.prototype.$moment = moment
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

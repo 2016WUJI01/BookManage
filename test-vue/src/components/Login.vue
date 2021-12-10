@@ -26,7 +26,13 @@ export default {
   methods: {
     login () {
       this.$http.post('/login', this.loginForm).then(res => {
-        this.$router.push({ path: '/index' })
+        if (res.data === true) {
+          this.$router.push({ path: '/index' })
+        } else {
+          this.$alert('账号或密码错误', '标题', {
+            confirmButtonText: '确定'
+          })
+        }
       })
     }
   }
