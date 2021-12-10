@@ -107,7 +107,6 @@
                         :label-width="formLabelWidth">
             <el-date-picker v-model="tempOrder.date"
                             type="date"></el-date-picker>
-
           </el-form-item>
           <el-form-item label="情况"
                         :label-width="formLabelWidth">
