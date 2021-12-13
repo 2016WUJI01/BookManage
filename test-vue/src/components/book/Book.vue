@@ -9,7 +9,8 @@
     </div>
     <el-table :data="paginationData"
               border
-              style="width: 100%">
+              style="width: 100%"
+              header-row-class-name="tableHead">
       <el-table-column prop="id"
                        label="id"
                        width="formLabelWidth
@@ -275,4 +276,7 @@ export default {
 </script>
 
 <style scoped>
+/* .tableHead {
+  font-weight: bold;
+} */
 </style>
