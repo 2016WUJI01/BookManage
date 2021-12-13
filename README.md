@@ -16,10 +16,3 @@ It's just a backup of course work.
 完成用户管理界面：分页、模糊搜索
 
 未完成编辑、删除、新增
-
-
-
-Todo List
-
-- [ ] 完成addUser组件
-- [ ] 完成其他界面
