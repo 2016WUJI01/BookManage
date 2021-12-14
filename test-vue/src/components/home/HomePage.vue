@@ -3,7 +3,7 @@
     <div>
       <el-row :gutter="40"
               class="panel-group">
-        <el-col :span="6"
+        <el-col :span="8"
                 class="card-panel-col">
           <div class="grid-content bg-purple card-panel">
             <div class="card-panel-icon-wrapper">
@@ -15,7 +15,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <div class="grid-content bg-purple card-panel">
             <div class="card-panel-icon-wrapper">
               <div class="card-panel-icon"><i class="el-icon-reading"></i></div>
@@ -26,25 +26,51 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
+          <div class="grid-content bg-purple card-panel">
+            <div class="card-panel-icon-wrapper">
+              <div class="card-panel-icon"><i class="el-icon-money"></i></div>
+            </div>
+            <div class="card-panel-description">
+              <div class="card-panel-text">已完成金额</div>
+              <div class="card-panel-num">{{summary[0].moneytotal.toFixed(2)}}</div>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="40"
+              class="panel-group">
+        <el-col :span="8">
           <div class="grid-content bg-purple card-panel">
             <div class="card-panel-icon-wrapper">
               <div class="card-panel-icon"><i class="el-icon-warning-outline"></i></div>
             </div>
             <div class="card-panel-description">
               <div class="card-panel-text">未完成订单数</div>
-              <div class="card-panel-num">{{summary[0].order}}</div>
+              <div class="card-panel-num">{{summary[0].orderfalse}}</div>
             </div>
           </div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
+          <div class="grid-content bg-purple card-panel">
+            <div class="card-panel-icon-wrapper">
+              <div class="card-panel-icon"><i class="el-icon-circle-check
+"></i></div>
+            </div>
+            <div class="card-panel-description">
+              <div class="card-panel-text">已完成订单数</div>
+              <div class="card-panel-num">{{summary[0].ordertrue}}</div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="8">
           <div class="grid-content bg-purple card-panel">
             <div class="card-panel-icon-wrapper">
               <div class="card-panel-icon"><i class="el-icon-collection"></i></div>
             </div>
             <div class="card-panel-description">
-              <div class="card-panel-text">总订书量</div>
-              <div class="card-panel-num">{{summary[0].booktotal}}</div>
+              <div class="card-panel-text">已完成总订书量</div>
+              <div class="card-panel-num">{{summary[0].bookfinaltotal}}</div>
             </div>
           </div>
         </el-col>
@@ -88,7 +114,16 @@ export default {
   name: 'HomePage',
   data () {
     return {
-      summary: [{ user: '', book: '', order: '', booktotal: '' }],
+      summary: [
+        {
+          user: '',
+          book: '',
+          moneytotal: 0.0,
+          orderfalse: '',
+          ordertrue: '',
+          bookfinaltotal: ''
+        }
+      ],
       tableData: [],
       total: 0,
       currentPage: 1,
@@ -143,22 +178,6 @@ export default {
       this.total = this.tableData.length
     },
     getTable () {
-      this.$http.get('/bookorder/bookorderAll').then(response => {
-        this.tableData = response.data
-        this.handleCurrentChange(this.currentPage)
-        this.stashList = this.tableData
-        console.log(response.data)
-        let ordercount = 0
-        let bookcount = 0
-        for (let i = 0; i < response.data.length; i++) {
-          if (response.data[i].situation === '未完成') {
-            ordercount++
-          }
-          bookcount += response.data[i].number
-        }
-        this.summary[0].order = ordercount
-        this.summary[0].booktotal = bookcount
-      })
       this.$http.get('/user/userAll').then(response => {
         this.userOptions = response.data
         this.summary[0].user = this.userOptions.length
@@ -170,6 +189,34 @@ export default {
           count += response.data[i].reserve
         }
         this.summary[0].book = count
+      })
+      this.$http.get('/bookorder/bookorderAll').then(response => {
+        this.tableData = response.data
+        this.handleCurrentChange(this.currentPage)
+        this.stashList = this.tableData
+        let orderfalsecount = 0
+        let bookcount = 0
+        let ordertruecount = 0
+        let tempmoney = 0.0
+        for (let i = 0; i < response.data.length; i++) {
+          if (response.data[i].situation === '未完成') {
+            orderfalsecount++
+          } else if (response.data[i].situation === '已完成') {
+            ordertruecount++
+            bookcount += response.data[i].number
+            let tempPrice = 0
+            this.bookOptions.forEach(function (item, index) {
+              if (response.data[i].bookid === item.id) {
+                tempPrice = item.price
+              }
+            })
+            tempmoney += response.data[i].number * tempPrice
+          }
+        }
+        this.summary[0].orderfalse = orderfalsecount
+        this.summary[0].ordertrue = ordertruecount
+        this.summary[0].bookfinaltotal = bookcount
+        this.summary[0].moneytotal = tempmoney
       })
     }
   }

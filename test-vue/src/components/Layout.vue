@@ -27,7 +27,7 @@
         </el-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>万里教材订购管理系统</el-header>
         <el-main>
           <router-view></router-view>
         </el-main>
